@@ -8,7 +8,8 @@ window.addEventListener("load", function() {
 	"scripts/sizzle.js",
 	"scripts/dom.js",
 	"scripts/game.js",
-       "scripts/screen.splash.js"
+	"scripts/screen.splash.js",
+	"scripts/screen.main-menu.js"
       ],
       complete: function() {
 	jewel.game.showScreen("splash-screen");

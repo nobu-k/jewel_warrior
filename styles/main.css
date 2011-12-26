@@ -43,7 +43,46 @@ body {
     margin: 0;
     text-align: center;
     color: rgb(70, 120, 20);
-    text-shadow: 0.03em 0.03em 0.03em rgb(255, 255, 0),
-        -0.03em -0.03em 0.03em rgb(255, 255, 0),
+    text-shadow: 0.03em 0.03em 0.03em rgb(255, 255, 0), /* outline */
+        -0.03em -0.03em 0.03em rgb(255, 255, 0), /* outline */
 	0.10em 0.15em 0.15em rgb(0, 0, 0);
+}
+
+/* Menu related */
+#main-menu {
+    padding-top: 1em;
+}
+
+ul.menu {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+ul.menu li {
+    margin: 0.8em 0;
+}
+
+ul.menu li button {
+    font-family: Slackey, sans-serif;
+    font-size: 0.6em;
+    color: rgb(100, 120, 0);
+    width: 10em;
+    height: 1.5em;
+    background: rgb(10, 20, 0);
+    border: 0.1em solid rgb(255, 255, 0);
+    border-radius: 0.5em;
+    -webkit-box-shadow: 0.2em 0.2em 0.3em rgb(0, 0, 0);
+    -moz-box-shadow: 0.2em 0.2em 0.3em rgb(0, 0, 0);
+    box-shadow: 0.2em 0.2em 0.3em rgb(0, 0, 0);
+}
+
+ul.menu li button:hover {
+    background: rgb(30, 40, 0);
+}
+
+ul.menu li button:active {
+    color: rgb(255, 255, 0);
+    background: rgb(30, 40, 0);
 }
