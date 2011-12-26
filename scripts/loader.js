@@ -19,6 +19,16 @@ window.addEventListener("load", function() {
       yep: "scripts/screen.splash.js",
       nope: "scripts/screen.install.js",
       complete: function() {
+	jewel.game.setup();
+
+	// hide the address bar on Android devices
+	if (/Android/.test(navigator.userAgent)) {
+	  $("#game")[0].style.height = "200%"; // making extra vertical spaces
+	  setTimeout(function() {
+	    window.scrollTo(0, 1);
+	  }, 0);
+	}
+
 	if (Modernizr.standalone) {
 	  jewel.game.showScreen("splash-screen");
 	} else {
