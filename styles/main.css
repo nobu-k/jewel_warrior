@@ -36,6 +36,17 @@ body {
     font-size: 0.75em;
 }
 
+#install-screen {
+    padding-top: 0.5em;
+    text-align: center;
+}
+
+#install-screen span {
+    font-size: 0.75em;
+    display: inline-block;
+    padding: 0 0.5em;
+}
+
 .logo {
     font-family: Slackey;
     font-size: 1.5em;
