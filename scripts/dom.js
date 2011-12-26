@@ -12,14 +12,22 @@ jewel.dom = (function() {
   }
 
   function removeClass(el, clsName) {
-    var regex = new RegExp("(^|\\s)" + clsName + "(\\s|$))");
+    var regex = new RegExp("(^|\\s)" + clsName + "(\\s|$)");
     el.className = el.className.replace(regex, " ");
+  }
+
+  function bind(el, event, handler) {
+    if (typeof el == "string") {
+      el = $(el)[0];
+    }
+    el.addEventListener(event, handler, false);
   }
 
   return {
     $: $,
     hasClass: hasClass,
     addClass: addClass,
-    removeClass: removeClass
+    removeClass: removeClass,
+    bind: bind
   };
 })();
