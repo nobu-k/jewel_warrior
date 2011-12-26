@@ -8,7 +8,7 @@ window.addEventListener("load", function() {
 	"scripts/game.js"
       ],
       complete: function() {
-	// console.log("All files loaded!");
+	jewel.game.showScreen("splash-screen");
       }
     }
   ]);
