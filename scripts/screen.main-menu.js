@@ -4,7 +4,7 @@ jewel.screens["main-menu"] = (function() {
 
   function setup() {
     dom.bind("#main-menu ul.menu", "click", function(e) {
-      if (e.target.nodeName.toLowerCase() == "button") {
+      if (e.target.nodeName.toLowerCase() === "button") {
 	var action = e.target.getAttribute("name");
 	game.showScreen(action);
       }
