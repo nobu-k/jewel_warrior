@@ -5,6 +5,9 @@ var jewel = {
     cols: 8,
     baseScore: 100,
     numJewelTypes: 7,
+    baseLevelTimer: 60000,
+    baseLevelScore: 1500,
+    baseLevelExp: 1.05,
     controls: {
       KEY_UP: "moveUp",
       KEY_LEFT: "moveLeft",
@@ -60,6 +63,7 @@ window.addEventListener("load", function() {
       load: [
 	"scripts/sizzle.js",
 	"scripts/dom.js",
+        "scripts/requestAnimationFrame.js",
 	"scripts/game.js"
       ]
     },{
