@@ -17,6 +17,7 @@ jewel.display = (function() {
     dom.addClass(canvas, "board");
     canvas.width = cols * jewelSize;
     canvas.height = rows * jewelSize;
+    ctx.scale(jewelSize, jewelSize);
     boardElement.appendChild(createBackground());
     boardElement.appendChild(canvas);
   }
@@ -49,7 +50,7 @@ jewel.display = (function() {
   function drawJewel(type, x, y) {
     var image = jewel.images["images/jewels" + jewelSize + ".png"];
     ctx.drawImage(image, type * jewelSize, 0, jewelSize, jewelSize,
-                  x * jewelSize, y * jewelSize, jewelSize, jewelSize);
+                  x, y, 1, 1);
   }
 
   function redraw(newJewels, callback) {
@@ -77,10 +78,9 @@ jewel.display = (function() {
       ctx.restore();
     }
     ctx.save();
-    ctx.lineWidth = 0.05 * jewelSize;
+    ctx.lineWidth = 0.05;
     ctx.strokeStyle = "rgba(250, 250, 150, 0.8)";
-    ctx.strokeRect((x + 0.05) * jewelSize, (y + 0.05) * jewelSize,
-                   0.9 * jewelSize, 0.9 * jewelSize);
+    ctx.strokeRect(x + 0.05, y + 0.05, 0.9, 0.9);
     ctx.restore();
   }
 
@@ -107,7 +107,7 @@ jewel.display = (function() {
   }
 
   function clearJewel(x, y) {
-    ctx.clearRect(x * jewelSize, y * jewelSize, jewelSize, jewelSize);
+    ctx.clearRect(x, y, 1, 1);
   }
 
   function moveJewels(movedJewels, callback) {
