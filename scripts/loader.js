@@ -60,6 +60,7 @@ window.addEventListener("load", function() {
       load: [
 	"scripts/sizzle.js",
 	"scripts/dom.js",
+        "scripts/requestAnimationFrame.js",
 	"scripts/game.js"
       ]
     },{
