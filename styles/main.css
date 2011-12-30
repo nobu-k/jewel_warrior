@@ -59,7 +59,7 @@ body {
     margin: 0.3em auto;
     width: 6em;
     height: 0.5em;
-    boarder-radius: 0.5em;
+    border-radius: 0.5em;
     overflow: hidden;
     boarder: 1px solid rgb(200, 200, 100);
 }
