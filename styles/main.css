@@ -163,3 +163,34 @@ ul.menu li button:active {
 #game-screen .game-board .board-bg {
     z-index: 0;
 }
+
+#game-screen .game-board .dom-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#game-screen .game-board .dom-container .jewel {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    overflow: hidden;
+}
+
+#game-screen .game-board .board-bg {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%,
+					      transparent 25%, transparent 75%,
+					      rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0.15)),
+                      -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%,
+					      transparent 25%, transparent 75%,
+					      rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0.15));
+    background-size: 2em 2em;
+    background-position: 0 0, 1em 1em;
+}
+
+#game-screen .game-board .board-bg div {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    background-color: rgba(225, 235, 255, 0.15);
+}
