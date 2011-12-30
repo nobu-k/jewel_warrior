@@ -15,7 +15,9 @@ jewel.game = (function() {
     if (activeScreen) {
       dom.removeClass(activeScreen, "active");
     }
-    jewel.screens[screenId].run();
+
+    var args = Array.prototype.slice.call(arguments, 1);
+    jewel.screens[screenId].run.apply(jewel.screens[screenId], args);
     dom.addClass(screen, "active");
   }
 

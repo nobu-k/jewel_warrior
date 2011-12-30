@@ -5,7 +5,8 @@ var jewel = {
     cols: 8,
     baseScore: 100,
     numJewelTypes: 7
-  }
+  },
+  images: {}
 };
 
 Modernizr.addTest("standalone", function() {
@@ -13,6 +14,32 @@ Modernizr.addTest("standalone", function() {
 });
 
 window.addEventListener("load", function() {
+  var jewelProto = document.getElementById("jewel-proto");
+  var rect = jewelProto.getBoundingClientRect();
+  jewel.settings.jewelSize = rect.width;
+
+  var numPreload = 0, numLoaded = 0;
+
+  function getLoadProgress() {
+    if (numPreload > 0) return numLoaded / numPreload;
+    return 0;
+  }
+
+  yepnope.addPrefix("loader", function(resource) {
+    var isImage = /.+\.(jpg|png|gif)$/i.test(resource.url);
+    resource.noexec = isImage;
+    numPreload++;
+    resource.autoCallback = function(e) {
+      numLoaded++;
+      if (isImage) {
+        var image = new Image();
+        image.src = resource.url;
+        jewel.images[resource.url] = image;
+      }
+    };
+    return resource;
+  });
+
   yepnope.addPrefix("preload", function(resource) {
     resource.noexec = true;
     return resource;
@@ -41,7 +68,7 @@ window.addEventListener("load", function() {
 	}
 
 	if (Modernizr.standalone) {
-	  jewel.game.showScreen("splash-screen");
+	  jewel.game.showScreen("splash-screen", getLoadProgress);
 	} else {
 	  jewel.game.showScreen("install-screen");
 	}
@@ -53,12 +80,13 @@ window.addEventListener("load", function() {
     Modernizr.load([
       {
 	load: [
-	  "scripts/screen.main-menu.js"
+          "loader!scripts/screen.main-menu.js",
+          "loader!images/jewels" + jewel.settings.jewelSize + ".png"
 	]
       },{
         test: Modernizr.webworkers,
-        yep: ["scripts/board.worker-interface.js", "preload!scripts/board.worker.js"],
-        nope: "scripts/board.js"
+        yep: ["loader!scripts/board.worker-interface.js", "preload!scripts/board.worker.js"],
+        nope: "loader!scripts/board.js"
       }
     ]);
   }
