@@ -18,6 +18,20 @@ body {
     color: rgb(200, 200, 100);
 }
 
+#game .background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+#game .background canvas {
+    width: 100%;
+    height: 100%;
+}
+
 #game .screen {
     position: absolute;
     width: 100%;
@@ -38,6 +52,22 @@ body {
 #splash-screen .continue {
     cursor: pointer;
     font-size: 0.75em;
+    display: none;
+}
+
+.progress {
+    margin: 0.3em auto;
+    width: 6em;
+    height: 0.5em;
+    border-radius: 0.5em;
+    overflow: hidden;
+    boarder: 1px solid rgb(200, 200, 100);
+}
+
+.progress .indicator {
+    background-color: rgb(200, 200, 100);
+    height: 100%;
+    width: 0%;
 }
 
 #install-screen {
@@ -100,4 +130,67 @@ ul.menu li button:hover {
 ul.menu li button:active {
     color: rgb(255, 255, 0);
     background: rgb(30, 40, 0);
+}
+
+.jewel-size {
+    font-size: 40px;
+}
+
+#jewel-proto {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    left: -1000px;
+}
+
+#game-screen .game-board {
+    position: relative;
+    width: 8em;
+    height: 8em;
+}
+
+#game-screen .game-board .board-bg,
+#game-screen .game-board .board {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#game-screen .game-board .board {
+    z-index: 10;
+}
+
+#game-screen .game-board .board-bg {
+    z-index: 0;
+}
+
+#game-screen .game-board .dom-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#game-screen .game-board .dom-container .jewel {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    overflow: hidden;
+}
+
+#game-screen .game-board .board-bg {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%,
+					      transparent 25%, transparent 75%,
+					      rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0.15)),
+                      -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%,
+					      transparent 25%, transparent 75%,
+					      rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0.15));
+    background-size: 2em 2em;
+    background-position: 0 0, 1em 1em;
+}
+
+#game-screen .game-board .board-bg div {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    background-color: rgba(225, 235, 255, 0.15);
 }
