@@ -177,17 +177,42 @@ jewel.board = (function() {
   }
 
   function swap(x1, y1, x2, y2, callback) {
-    var tmp, events;
+    if (!isAdjacent(x1, y1, x2, y2)) {
+      callback(false);
+      return;
+    }
+
+    var events = [];
+    events.push({ // swapping motion of selected two jewels
+      type: "move",
+      data: [{
+        type: getJewel(x1, y1),
+        fromX: x1, fromY: y1, toX: x2, toY: y2
+      },{
+        type: getJewel(x2, y2),
+        fromX: x2, fromY: y2, toX: x1, toY: y1
+      }]
+    });
+
     if (canSwap(x1, y1, x2, y2)) {
-      tmp = getJewel(x1, y1);
+      var tmp = getJewel(x1, y1);
       jewels[x1][y1] = getJewel(x2, y2);
       jewels[x2][y2] = tmp;
-      events = check();
-      callback(events);
+      events = events.concat(check());
 
-    } else {
-      callback(false);
+    } else { // swap failure
+      events.push({ // move back to the original positions
+        type: "move",
+        data: [{
+          type: getJewel(x2, y2),
+          fromX: x1, fromY: y1, toX: x2, toY: y2
+        },{
+          type: getJewel(x1, y1),
+          fromX: x2, fromY: y2, toX: x1, toY: y1
+        }]
+      }, {type: "badswap"});
     }
+    callback(events);
   }
 
   return {

@@ -6,6 +6,7 @@ jewel.display = (function() {
   var jewels;
   var cursor;
   var previousCycle;
+  var animations = [];
 
   function setup() {
     var boardElement = $("#game-screen .game-board")[0];
@@ -28,6 +29,7 @@ jewel.display = (function() {
 
   function cycle(time) {
     renderCursor(time);
+    renderAnimations(time, previousCycle);
     previousCycle = time;
     requestAnimationFrame(cycle);
   }
@@ -123,15 +125,30 @@ jewel.display = (function() {
 
   function moveJewels(movedJewels, callback) {
     var n = movedJewels.length;
-    for (var i = 0; i < n; i++) {
-      var mover = movedJewels[i];
-      clearJewel(mover.fromX, mover.fromY);
-    }
-    for (var i = 0; i < n; i++) {
-      var mover = movedJewels[i];
-      drawJewel(mover.type, mover.toX, mover.toY);
-    }
-    callback();
+    var oldCursor = cursor;
+    cursor = null;
+
+    movedJewels.forEach(function(e) {
+      var x = e.fromX, y = e.fromY;
+      var dx = e.toX - e.fromX, dy = e.toY - e.fromY;
+      dist = Math.abs(dx) + Math.abs(dy);
+      addAnimation(200 * dist, {
+        before: function(pos) {
+          pos = Math.sin(pos * Math.PI / 2);
+          clearJewel(x + dx * pos, y + dy * pos);
+        },
+        render: function(pos) {
+          pos = Math.sin(pos * Math.PI / 2);
+          drawJewel(e.type, x + dx * pos, y + dy * pos);
+        },
+        done: function() {
+          if (--n == 0) {
+            cursor = oldCursor;
+            callback();
+          }
+        }
+      });
+    });
   }
 
   function removeJewels(removedJewels, callback) {
@@ -140,6 +157,43 @@ jewel.display = (function() {
       clearJewel(removedJewels[i].x, removedJewels[i].y);
     }
     callback();
+  }
+
+  function addAnimation(runTime, fncs) {
+    var anim = {
+      runTime: runTime,
+      startTime: Date.now(),
+      pos: 0,
+      fncs: fncs
+    };
+    animations.push(anim);
+  }
+
+  function renderAnimations(time, lastTime) {
+    var anims = animations.slice(0);
+    var n = anims.length;
+
+    for (var i = 0; i < n; i++) {
+      var anim = anims[i];
+      if (anim.fncs.before) {
+        anim.fncs.before(anim.pos);
+      }
+      anim.lastPos = anim.pos;
+      var animTime = (lastTime - anim.startTime);
+      anim.pos = animTime / anim.runTime;
+      anim.pos = Math.max(0, Math.min(1, anim.pos));
+    }
+
+    animations = [];
+    for (i = 0; i < n; i++) {
+      var anim = anims[i];
+      anim.fncs.render(anim.pos, anim.pos - anim.lastPos);
+      if (anim.pos == 1) {
+        if (anim.fncs.done) anim.fncs.done();
+      } else {
+        animations.push(anim);
+      }
+    }
   }
 
   return {
