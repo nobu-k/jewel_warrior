@@ -13,6 +13,9 @@
     #game {
 	font-size: 64px;
     }
+    .jewel-size {
+	font-size: 80px;
+    }
 }
 
 /* smartphones landscape */
@@ -29,12 +32,18 @@
 	margin: 0.5em;
 	font-size: 0.5em;
     }
+    .jewel-size {
+	font-size: 32px;
+    }
 }
 
 /* small screens landscape */
 @media (orientation: landscape) and (max-device-width: 480px) {
     ul.menu li button {
 	font-size: 0.4em;
+    }
+    .jewel-size {
+	font-size: 24px;
     }
 }
 
@@ -43,5 +52,8 @@
     #splash-screen,
     #main-menu {
 	padding-top: 1.5em;
+    }
+    .jewel-size {
+	font-size: 64px;
     }
 }
