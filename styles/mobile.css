@@ -13,6 +13,9 @@
     #game {
 	font-size: 64px;
     }
+    #game-screen .game-board {
+        margin : 0.75em;
+    }
     .jewel-size {
 	font-size: 80px;
     }
@@ -52,6 +55,9 @@
     #splash-screen,
     #main-menu {
 	padding-top: 1.5em;
+    }
+    #game-screen .game-board {
+        margin : 0.25em;
     }
     .jewel-size {
 	font-size: 64px;
