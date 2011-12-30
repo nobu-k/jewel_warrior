@@ -5,6 +5,7 @@ jewel.display = (function() {
   var firstRun = true;
   var jewels;
   var cursor;
+  var previousCycle;
 
   function setup() {
     var boardElement = $("#game-screen .game-board")[0];
@@ -20,6 +21,15 @@ jewel.display = (function() {
     ctx.scale(jewelSize, jewelSize);
     boardElement.appendChild(createBackground());
     boardElement.appendChild(canvas);
+
+    previousCycle = Date.now();
+    requestAnimationFrame(cycle);
+  }
+
+  function cycle(time) {
+    renderCursor(time);
+    previousCycle = time;
+    requestAnimationFrame(cycle);
   }
 
   function initialize(callback) {
@@ -61,25 +71,27 @@ jewel.display = (function() {
         drawJewel(jewels[x][y], x, y);
       }
     }
-    renderCursor();
     callback();
   }
 
-  function renderCursor() {
+  function renderCursor(time) {
     if (!cursor) return;
     var x = cursor.x, y  = cursor.y;
+    var t1 = (Math.sin(time / 200) + 1) / 2;
+    var t2 = (Math.sin(time / 400) + 1) / 2;
+
     clearCursor();
 
     if (cursor.selected) {
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
-      ctx.globalAlpha = 0.8;
+      ctx.globalAlpha = 0.8 * t1;
       drawJewel(jewels[x][y], x, y);
       ctx.restore();
     }
     ctx.save();
     ctx.lineWidth = 0.05;
-    ctx.strokeStyle = "rgba(250, 250, 150, 0.8)";
+    ctx.strokeStyle = "rgba(250, 250, 150, " + (0.5 + 0.5 * t2) + ")";
     ctx.strokeRect(x + 0.05, y + 0.05, 0.9, 0.9);
     ctx.restore();
   }
@@ -103,7 +115,6 @@ jewel.display = (function() {
     } else {
       cursor = null;
     }
-    renderCursor();
   }
 
   function clearJewel(x, y) {
