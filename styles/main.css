@@ -61,7 +61,7 @@ body {
     height: 0.5em;
     border-radius: 0.5em;
     overflow: hidden;
-    boarder: 1px solid rgb(200, 200, 100);
+    border: 1px solid rgb(200, 200, 100);
 }
 
 .progress .indicator {
@@ -147,6 +147,7 @@ ul.menu li button:active {
     position: relative;
     width: 8em;
     height: 8em;
+    -webkit-perspective: 16em;
 }
 
 #game-screen .game-board .board-bg,
@@ -193,4 +194,96 @@ ul.menu li button:active {
     width: 1em;
     height: 1em;
     background-color: rgba(225, 235, 255, 0.15);
+}
+
+#game-screen .game-info {
+    width: 100%;
+    float: left;
+}
+
+#game-screen .game-info label {
+    display: inline-block;
+    height: 1.5em;
+    float: left;
+    font-size: 0.6em;
+    padding: 0.25em;
+}
+
+#game-screen .game-info .score {
+    float: right;
+}
+
+#game-screen .time {
+    height: 0.25em;
+    border-radius: 0.5em;
+}
+
+#game-screen .time .indicator {
+    width: 100%;
+}
+
+#game-screen .announcement {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -0.5em;
+    width: 100%;
+    font-family: Slackey, sans-serif;
+    color: rgb(150, 150, 75);
+    text-shadow: 0.03em 0.03em 0.03em rgb(255, 255, 0),
+                -0.03em -0.03em 0.15em rgb(0, 0, 0),
+		0.1em 0.15em 0.15em rgb(0, 0, 0);
+    text-align: center;
+    white-space: nowrap;
+    z-index: 20;
+    opacity: 0;
+    cursor: default;
+}
+
+.no-textshadow #game-screen .announcement {
+    filter: glow(color=#ffff00, strength=1), dropshadow(color=#000000,offX=3,offY=3);
+}
+
+@-webkit-keyframes zoomfade {
+    0% {
+	opacity: 1;
+	-webkit-transform: scale(0.5);
+    }
+    25% {
+	opacity: 1;
+    }
+    100% {
+	opacity: 0;
+	-webkit-transform: scale(1.5);
+    }
+}
+
+@-moz-keyframes zoomfade {
+    0% {
+	opacity: 1;
+	-moz-transform: scale(0.5);
+    }
+    25% {
+	opacity: 1;
+    }
+    100% {
+	opacity: 0;
+	-moz-transform: scale(1.5);
+    }
+}
+
+.zoomfade {
+    -webkit-animation-name: zoomfade;
+    -webkit-animation-duration: 2s;
+    -moz-animation-name: zoomfade;
+    -moz-animation-duration: 2s;
+}
+
+.no-cssanimations #game-screen .announcement {
+    display: none;
+}
+
+.no-cssanimations #game-screen .announcement.active {
+    opacity: 1;
+    display: block;
 }
