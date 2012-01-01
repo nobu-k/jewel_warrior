@@ -26,6 +26,16 @@ Modernizr.addTest("standalone", function() {
   return window.navigator.standalone != false;
 });
 
+Modernizr.addTest("webgl2", function() {
+  try {
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext("experimental-webgl");
+    return !!ctx;
+  } catch (e) {
+    return false;
+  }
+});
+
 window.addEventListener("load", function() {
   var jewelProto = document.getElementById("jewel-proto");
   var rect = jewelProto.getBoundingClientRect();
@@ -90,12 +100,23 @@ window.addEventListener("load", function() {
     }
   ]);
 
+  console.log(Modernizr.webgl2);
   if (Modernizr.standalone) {
     Modernizr.load([
       {
-        test: Modernizr.canvas,
-        yep: "loader!scripts/display.canvas.js",
-        nope: "loader!scripts/display.dom.js"
+        test: Modernizr.webgl2,
+        yep: [
+          "loader!scripts/webgl.js",
+          "loader!scripts/glMatrix-0.9.5.min.js",
+          "loader!scripts/display.webgl.js",
+          "loader!images/jewelpattern.jpg"
+        ]
+      },{
+        test: Modernizr.canvas && !Modernizr.webgl2,
+        yep: "loader!scripts/display.canvas.js"
+      },{
+        test: !Modernizr.canvas,
+        yep: "loader!scripts/display.dom.js"
       },{
         test: Modernizr.webworkers,
         yep: ["loader!scripts/board.worker-interface.js", "preload!scripts/board.worker.js"],
